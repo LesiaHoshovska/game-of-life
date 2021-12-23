@@ -128,6 +128,7 @@ function neighborsNum(row, col) {
 }
 
 function startGame() {
+  fillCellsWithColor();
   window.setInterval(() => {
     computeNextGen();
   }, 1000);
@@ -136,5 +137,4 @@ function startGame() {
 window.onload = function () {
   createField();
   initializeGrids();
-  fillCellsWithColor();
 };
