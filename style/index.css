@@ -43,3 +43,9 @@ button {
 .death {
   background-color: rgb(174, 226, 174);
 }
+
+#startDiv {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}

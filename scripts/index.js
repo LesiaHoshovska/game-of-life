@@ -11,7 +11,6 @@ function initializeGrids() {
       initArr[i][j] = 0;
     }
   }
-
   return initArr;
 }
 
@@ -47,7 +46,7 @@ function fillCellsWithColor() {
   }
 }
 
-function updateView() {
+function updateGeneration() {
   for (let i = 0; i < lifeArr.length; i++) {
     for (let j = 0; j < lifeArr[i].length; j++) {
       let td = document.getElementById(i + "-" + j);
@@ -60,7 +59,7 @@ function updateView() {
   }
 }
 
-function resetArr() {
+function updateArr() {
   for (let i = 0; i < lifeArr.length; i++) {
     for (let j = 0; j < lifeArr[i].length; j++) {
       lifeArr[i][j] = deathArr[i][j];
@@ -72,24 +71,17 @@ function resetArr() {
 function computeNextGen() {
   for (var i = 0; i < lifeArr.length; i++) {
     for (var j = 0; j < lifeArr[i].length; j++) {
-      applyRules(i, j);
+      setGameRules(i, j);
     }
   }
 
-  // copy NextGrid to grid, and reset nextGrid
-  resetArr();
-  // copy all 1 values to "live" in the table
-  updateView();
+  updateArr();
+
+  updateGeneration();
 }
 
-// RULES
-// Any live cell with fewer than two live neighbours dies, as if caused by under-population.
-// Any live cell with two or three live neighbours lives on to the next generation.
-// Any live cell with more than three live neighbours dies, as if by overcrowding.
-// Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-
-function applyRules(row, col) {
-  let numNeighbors = countNeighbors(row, col);
+function setGameRules(row, col) {
+  let numNeighbors = neighborsNum(row, col);
   if (lifeArr[row][col] === 1) {
     if (numNeighbors < 2) {
       deathArr[row][col] = 0;
@@ -105,7 +97,7 @@ function applyRules(row, col) {
   }
 }
 
-function countNeighbors(row, col) {
+function neighborsNum(row, col) {
   let count = 0;
 
   if (row - 1 >= 0) {
@@ -135,13 +127,14 @@ function countNeighbors(row, col) {
   return count;
 }
 
-function startGame() {}
+function startGame() {
+  window.setInterval(() => {
+    computeNextGen();
+  }, 1000);
+}
 
 window.onload = function () {
   createField();
   initializeGrids();
   fillCellsWithColor();
-  window.setInterval(() => {
-    computeNextGen();
-  }, 1000);
 };
