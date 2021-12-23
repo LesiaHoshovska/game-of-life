@@ -1,0 +1,45 @@
+#gameTable {
+  border: 2px solid rgb(136, 180, 70);
+}
+#gameField {
+  display: flex;
+
+  justify-content: center;
+}
+
+td {
+  border: 2px solid rgb(136, 180, 70);
+  width: 5px;
+  height: 5px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  background-color: rgb(174, 226, 174);
+}
+
+header {
+  display: flex;
+  justify-content: center;
+}
+
+h1,
+h4,
+h3 {
+  color: green;
+}
+button {
+  background-color: green;
+}
+
+.life {
+  background-color: orange;
+}
+
+.death {
+  background-color: rgb(174, 226, 174);
+}
