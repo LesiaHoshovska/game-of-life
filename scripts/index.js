@@ -59,7 +59,11 @@ function generateNeighboursArr(coordinateArr) {
   const neighborsCountArr = [];
   for (let i = 0; i < arr.length; i++) {
     const cellNeighbor = arr.reduce((sum, currentVal) => {
-      if (Math.abs(currentVal - arr[i]) === 1) {
+      if (
+        Math.abs(currentVal - arr[i]) === 1 ||
+        Math.abs(currentVal - arr[i]) === 99 ||
+        Math.abs(currentVal - arr[i]) === 101
+      ) {
         const neighbor = 1;
         sum.push(neighbor);
       }
