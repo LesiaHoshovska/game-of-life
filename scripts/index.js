@@ -46,7 +46,7 @@ function fillCellsWithColor() {
   }
 }
 
-function playGame(coordinateArr) {
+function generateNeighboursArr(coordinateArr) {
   const arr = [];
   for (let i = 0; i < coordinateArr.length; i++) {
     let coordinate = parseInt(
@@ -59,22 +59,43 @@ function playGame(coordinateArr) {
   for (let i = 0; i < arr.length; i++) {
     const cellNeighbor = arr.reduce((sum, currentVal) => {
       if (Math.abs(currentVal - arr[i]) === 1) {
-        sum++;
+        const neighbor = 1;
+        sum.push(neighbor);
       }
       return sum;
-    });
-    neighborsCountArr.push(cellNeighbor);
+    }, []);
+    neighborsCountArr.push(cellNeighbor.length);
   }
   console.log(neighborsCountArr);
   return neighborsCountArr;
 }
 
+function playGame() {
+  const neighborsArr = generateNeighboursArr(initCoordinatesArr);
+  console.log(neighborsArr);
+  for (let i = 0; i < neighborsArr.length; i++) {
+    let cell = document.getElementById(
+      String(initCoordinatesArr[i].x) + String(initCoordinatesArr[i].y)
+    );
+    if (neighborsArr[i] < 2 && neighborsArr[i] > 0) {
+      cell.setAttribute("class", "death");
+    } else if (neighborsArr[i] >= 2 && neighborsArr[i] <= 3) {
+      cell.setAttribute("class", "life");
+    } else if (neighborsArr[i] > 3) {
+      cell.setAttribute("class", "death");
+    }
+  }
+}
+
 function startGame() {
   fillCellsWithColor();
+  window.setTimeout(() => {
+    playGame();
+  }, 1000);
+
   // window.setInterval(() => {
   //   playGame();
   // }, 1000);
-  updateCell(initCoordinatesArr);
 }
 
 window.onload = function () {
