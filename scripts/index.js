@@ -1,5 +1,6 @@
-const initCoordinatesArr = generateCellCoordinates();
-// const futherGenCoord = generateCellCoordinates();
+let initCoordinatesArr = generateCellCoordinates();
+
+let nextGenArr = [];
 
 function createField() {
   const rowNum = 64;
@@ -77,25 +78,30 @@ function playGame() {
     let cell = document.getElementById(
       String(initCoordinatesArr[i].x) + String(initCoordinatesArr[i].y)
     );
-    if (neighborsArr[i] < 2 && neighborsArr[i] > 0) {
+    if (neighborsArr[i] < 2 && neighborsArr[i] >= 0) {
       cell.setAttribute("class", "death");
-    } else if (neighborsArr[i] >= 2 && neighborsArr[i] <= 3) {
+    } else if (neighborsArr[i] === 2 && neighborsArr[i] <= 3) {
       cell.setAttribute("class", "life");
+      nextGenArr.push({
+        x: initCoordinatesArr[i].x,
+        y: initCoordinatesArr[i].y,
+      });
     } else if (neighborsArr[i] > 3) {
       cell.setAttribute("class", "death");
     }
   }
+  console.log(nextGenArr);
+  initCoordinatesArr = nextGenArr;
+  nextGenArr = [];
+  // fillCellsWithColor();
 }
 
 function startGame() {
   fillCellsWithColor();
-  window.setTimeout(() => {
+  window.setInterval(() => {
     playGame();
   }, 1000);
-
-  // window.setInterval(() => {
-  //   playGame();
-  // }, 1000);
+  console.log(nextGenArr);
 }
 
 window.onload = function () {
