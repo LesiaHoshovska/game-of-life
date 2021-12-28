@@ -55,7 +55,7 @@ function generateNeighboursArr(coordinateArr) {
     );
     arr.push(coordinate);
   }
-  console.log(arr);
+
   const neighborsCountArr = [];
   for (let i = 0; i < arr.length; i++) {
     const cellNeighbor = arr.reduce((sum, currentVal) => {
@@ -75,9 +75,10 @@ function generateNeighboursArr(coordinateArr) {
   return neighborsCountArr;
 }
 
-function playGame() {
+function generateNextGen() {
   const neighborsArr = generateNeighboursArr(initCoordinatesArr);
   console.log(neighborsArr);
+  let nextGenArr = [];
   for (let i = 0; i < neighborsArr.length; i++) {
     let cell = document.getElementById(
       String(initCoordinatesArr[i].x) + String(initCoordinatesArr[i].y)
@@ -94,10 +95,17 @@ function playGame() {
       cell.setAttribute("class", "death");
     }
   }
+
+  return nextGenArr;
+}
+
+function playGame() {
+  let nextGenArr = generateNextGen();
   console.log(nextGenArr);
   initCoordinatesArr = nextGenArr;
   nextGenArr = [];
-  // fillCellsWithColor();
+  console.log(nextGenArr);
+  console.log(initCoordinatesArr);
 }
 
 function startGame() {
